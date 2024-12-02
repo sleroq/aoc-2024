@@ -27,6 +27,29 @@ func solve(data [][]int) int {
 	return sum
 }
 
+func solve2(data [][]int) int {
+	sim := 0
+
+	// sort cols
+	slices.Sort(data[0])
+	slices.Sort(data[1])
+
+	for i := 0; i < len(data[0]); i++ {
+		number := data[0][i]
+		count := 0
+		
+		for _, num := range data[1] {
+			if num == number {
+				count++
+			}
+		}
+
+		sim += number * count
+	}
+
+	return sim
+}
+
 func main() {
 	// read input
 	input, err := os.ReadFile("input")
@@ -51,8 +74,8 @@ func main() {
 		data[1] = append(data[1], parseInt(res[1]))
 	}
 
-	// solve
 	fmt.Println(solve(data))
+	fmt.Println(solve2(data))
 }
 
 func parseInt(s string) int {
